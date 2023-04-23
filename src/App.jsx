@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { fetchDataFromApi } from './utils/app';
-import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getApiConfiguration } from './store/slice';
 import Home from './pages/home/Home';
@@ -35,7 +34,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:mediaType/:id" element={<Details />} />
