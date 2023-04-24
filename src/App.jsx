@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { fetchDataFromApi } from './utils/app';
 import { useSelector, useDispatch } from 'react-redux';
-import { getApiConfiguration } from './store/slice';
+import { getApiConfiguration, getGenres } from './store/slice';
 import Home from './pages/home/Home';
 import Details from './pages/details/Details';
 import SearchResult from './pages/searchResult/SearchResult';
@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     fetchApiConfig();
+    genresCall();
   }, []);
 
   const fetchApiConfig = async () => {
@@ -32,6 +33,24 @@ function App() {
     dispatch(getApiConfiguration(url));
   };
 
+  const genresCall = async () => {
+    let promises = [];
+    let endpoints = ['movie', 'tv'];
+    let allGenres = {};
+
+    endpoints.forEach((url) => {
+      promises.push(fetchDataFromApi(`/genre/${url}/list`));
+    });
+
+    const data = await Promise.all(promises);
+    // console.log(data);
+    data.map(({ genres }) => {
+      return genres.map((genre) => (allGenres[genre.id] = genre));
+    });
+    dispatch(getGenres(allGenres));
+
+    // console.log(allGenres);
+  };
   return (
     <BrowserRouter>
       <Header />
