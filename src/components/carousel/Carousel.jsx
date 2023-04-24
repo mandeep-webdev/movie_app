@@ -55,21 +55,25 @@ const Carousel = ({ data, loading }) => {
         />
         {!loading ? (
           <div className="carouselItems" ref={carouselContainer}>
-            {data?.map((movie) => {
-              const posterUrl = movie.poster_path
-                ? url.poster + movie.poster_path
+            {data?.map((item) => {
+              const posterUrl = item.poster_path
+                ? url.poster + item.poster_path
                 : PosterFallback;
               return (
-                <div className="carouselItem" key={movie.id}>
+                <div
+                  className="carouselItem"
+                  key={item.id}
+                  onClick={() => navigate(`/${item.media_type}/${item.id}`)}
+                >
                   <div className="posterBlock">
                     <Img src={posterUrl} />
-                    <CircleRating rating={movie.vote_average.toFixed(1)} />
-                    <Genres data={movie.genre_ids.slice(0, 2)} />
+                    <CircleRating rating={item.vote_average.toFixed(1)} />
+                    <Genres data={item.genre_ids.slice(0, 1)} />
                   </div>
                   <div className="textBlock">
-                    <span className="title">{movie.title}</span>
+                    <span className="title">{item.title}</span>
                     <span className="date">
-                      {dayjs(movie.release_date).format('MMM D, YYYY')}
+                      {dayjs(item.release_date).format('MMM D, YYYY')}
                     </span>
                   </div>
                 </div>
