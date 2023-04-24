@@ -13,7 +13,7 @@ import Img from '../lazyLoadImage/Img';
 import PosterFallback from '../../assets/images/no-poster.png';
 import Genres from '../genres/Genres';
 
-const Carousel = ({ data, loading }) => {
+const Carousel = ({ data, loading, endpoint }) => {
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
   const navigate = useNavigate();
@@ -63,7 +63,9 @@ const Carousel = ({ data, loading }) => {
                 <div
                   className="carouselItem"
                   key={item.id}
-                  onClick={() => navigate(`/${item.media_type}/${item.id}`)}
+                  onClick={() =>
+                    navigate(`/${item.media_type || endpoint}/${item.id}`)
+                  }
                 >
                   <div className="posterBlock">
                     <Img src={posterUrl} />

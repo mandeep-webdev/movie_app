@@ -3,6 +3,7 @@ import HeroBanner from './heroBanner/HeroBanner';
 import TrendingMovies from './trending/TrendingMovies';
 import TrendingTv from './trending/TrendingTv';
 import Popular from './popular/Popular';
+import TopRated from './topRated/TopRated';
 const Home = () => {
   return (
     <div>
@@ -10,7 +11,7 @@ const Home = () => {
       <TrendingMovies />
       <TrendingTv />
       <Popular />
-      <div style={{ height: '1000px' }}></div>
+      <TopRated />
     </div>
   );
 };
